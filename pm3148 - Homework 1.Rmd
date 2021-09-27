@@ -1,0 +1,82 @@
+---
+title: "pm3148 - Homework 1"
+output: html_notebook
+---
+Import Libraries
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+
+Problem 1: 
+#This problem is intended to emphasize variable types and introduce coercion; some awareness of how R treats numeric, character, and factor variables is necessary for working with these data types in practice.
+
+#Create a data frame comprised of:
+
+#a random sample of size 10 from a standard Normal distribution
+#a logical vector indicating whether elements of the sample are greater than 0
+#a character vector of length 10
+#a factor vector of length 10, with 3 different factor “levels”
+```{r}
+
+set_seed(123)
+example_df = 
+  tibble(
+    x = rnorm(10, mean =1),
+    log_vec = if(x>0) {TRUE} else {FALSE},
+    vec_char = c("char1", "char2", "char3", "char4", "char5", "char6","char7","char8","char9","char10"), 
+    vec_factor = factor(c("level1", "level2", "level3","level1", "level2", "level3","level1", "level2", "level3","level1"))
+  )
+
+view(example_df)
+
+#Take mean of each variable
+mean(example_df$x)
+mean(example_df$log_vec)
+mean(example_df$vec_char)
+mean(example_df$vec_factor)
+
+
+example_df%>%
+  pull(x)%>%
+  mean()
+
+example_df%>%
+  pull(log_vec)%>%
+  mean()
+
+example_df%>%
+  pull(vec_char)%>%
+  mean()
+
+example_df%>%
+  pull(vec_factor)%>%
+  mean()
+```
+
+
+Problem 2
+```{r}
+data(package = 'palmerpenguins')
+
+head(penguins)
+str(penguins)
+```
+#There are 8 variables in this dataset. The variables are species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, and year. 
+
+```{r}
+paste("There are", (nrow(penguins)), "rows in the penguins dataset")
+paste("There are", (ncol(penguins)), "columns in the penguins dataset")
+
+penguins%>%
+  pull(flipper_length_mm)%>%
+  mean(na.rm=TRUE)
+```
+
+```{r}
+penguins%>%
+  ggplot(aes(x = bill_length_mm, y =flipper_length_mm, color = species)) + geom_point()
+ggsave(filename = "bill_lengthvflipper_length.png")
+```
+
