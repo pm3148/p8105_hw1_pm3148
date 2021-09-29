@@ -246,7 +246,7 @@ example_df%&gt;%
 example_df%&gt;%
   pull(vec_factor_num)%&gt;%
   mean()</code></pre>
-<p>The mean function can only take in numeric data. In order for the factor variable mean to be calcualted, the factors had to be converted to numbers/levels. The character variable could not be converted to a number so all the values got converted to NA values. Then the mean function could not calculate a mean to do the missing values.</p>
+<p>The mean function can only take in numeric data. In order for the factor variable mean to be calculated, the factors had to be converted to numbers/levels. The character variable could not be converted to a number so all the values got converted to NA values. Then the mean function could not calculate a mean due to the missing values.</p>
 </div>
 <div id="problem-2" class="section level1">
 <h1>Problem 2</h1>
@@ -271,8 +271,8 @@ head(penguins)</code></pre>
 ##  $ year             : int [1:344] 2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...</code></pre>
 <p>There are 8 variables in this dataset. The variables are species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, and year.</p>
 <p>There are 344 rows in the penguins dataset. There are 8columns in the penguins dataset. The mean flipper length is 200.9152047 mm.</p>
-<pre class="r"><code>paste(&quot;There are&quot;, (nrow(penguins)), &quot;rows in the penguins dataset&quot;)
-paste(&quot;There are&quot;, (ncol(penguins)), &quot;columns in the penguins dataset&quot;)
+<pre class="r"><code>nrow(penguins)
+ncol(penguins)
 
 #Mean of flipper_length
 penguins%&gt;%

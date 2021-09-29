@@ -84,7 +84,7 @@ example_df%>%
   mean()
 
 ```
-The mean function can only take in numeric data. In order for the factor variable mean to be calcualted, the factors had to be converted to numbers/levels. The character variable could not be converted to a number so all the values got converted to NA values. Then the mean function could not calculate a mean to do the missing values. 
+The mean function can only take in numeric data. In order for the factor variable mean to be calculated, the factors had to be converted to numbers/levels. The character variable could not be converted to a number so all the values got converted to NA values. Then the mean function could not calculate a mean due to the missing values. 
 
 
 # Problem 2
