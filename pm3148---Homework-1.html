@@ -199,20 +199,6 @@ example_df =
 ## will be used</code></pre>
 <pre class="r"><code>view(example_df)
 
-#Take mean of each variable (Method 1)
-mean(example_df$x)</code></pre>
-<pre><code>## [1] 1.074626</code></pre>
-<pre class="r"><code>mean(example_df$log_vec)</code></pre>
-<pre><code>## [1] 1</code></pre>
-<pre class="r"><code>mean(example_df$vec_char)</code></pre>
-<pre><code>## Warning in mean.default(example_df$vec_char): argument is not numeric or
-## logical: returning NA</code></pre>
-<pre><code>## [1] NA</code></pre>
-<pre class="r"><code>mean(example_df$vec_factor)</code></pre>
-<pre><code>## Warning in mean.default(example_df$vec_factor): argument is not numeric or
-## logical: returning NA</code></pre>
-<pre><code>## [1] NA</code></pre>
-<pre class="r"><code>#Method 2 
 ##Mean of X
 example_df%&gt;%
   pull(x)%&gt;%
@@ -235,6 +221,32 @@ example_df%&gt;%
   mean()</code></pre>
 <pre><code>## Warning in mean.default(.): argument is not numeric or logical: returning NA</code></pre>
 <pre><code>## [1] NA</code></pre>
+<pre class="r"><code>#Convert all variables to numeric 
+example_df$x_num&lt;- as.numeric(example_df$x)
+example_df$log_vec_num&lt;- as.numeric(example_df$log_vec)
+example_df$vec_char_num&lt;-as.numeric(example_df$vec_char)
+example_df$vec_factor_num&lt;-as.numeric(example_df$vec_factor)
+
+##Mean of X
+example_df%&gt;%
+  pull(x_num)%&gt;%
+  mean()
+
+##Mean of logical vector
+example_df%&gt;%
+  pull(log_vec_num)%&gt;%
+  mean()
+
+##Mean of character vector
+example_df%&gt;%
+  pull(vec_char_num)%&gt;%
+  mean()
+
+##Mean of factor vector
+example_df%&gt;%
+  pull(vec_factor_num)%&gt;%
+  mean()</code></pre>
+<p>The mean function can only take in numeric data. In order for the factor variable mean to be calcualted, the factors had to be converted to numbers/levels. The character variable could not be converted to a number so all the values got converted to NA values. Then the mean function could not calculate a mean to do the missing values.</p>
 </div>
 <div id="problem-2" class="section level1">
 <h1>Problem 2</h1>
@@ -259,15 +271,13 @@ head(penguins)</code></pre>
 ##  $ year             : int [1:344] 2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...</code></pre>
 <p>There are 8 variables in this dataset. The variables are species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, and year.</p>
 <p>There are 344 rows in the penguins dataset. There are 8columns in the penguins dataset. The mean flipper length is 200.9152047 mm.</p>
-<pre class="r"><code>paste(&quot;There are&quot;, (nrow(penguins)), &quot;rows in the penguins dataset&quot;)</code></pre>
-<pre><code>## [1] &quot;There are 344 rows in the penguins dataset&quot;</code></pre>
-<pre class="r"><code>paste(&quot;There are&quot;, (ncol(penguins)), &quot;columns in the penguins dataset&quot;)</code></pre>
-<pre><code>## [1] &quot;There are 8 columns in the penguins dataset&quot;</code></pre>
-<pre class="r"><code>#Mean of flipper_length
+<pre class="r"><code>paste(&quot;There are&quot;, (nrow(penguins)), &quot;rows in the penguins dataset&quot;)
+paste(&quot;There are&quot;, (ncol(penguins)), &quot;columns in the penguins dataset&quot;)
+
+#Mean of flipper_length
 penguins%&gt;%
   pull(flipper_length_mm)%&gt;%
   mean(na.rm=TRUE)</code></pre>
-<pre><code>## [1] 200.9152</code></pre>
 <p>The mean flipper length in mm is 200.9152 mm.</p>
 <pre class="r"><code>#Scatter plot 
 penguins%&gt;%

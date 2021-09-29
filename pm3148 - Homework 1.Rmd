@@ -4,6 +4,8 @@ output:
   html_document:
     df_print: paged
 ---
+
+
 Import Libraries
 ```{r}
 library(tidyverse)
@@ -33,14 +35,6 @@ example_df =
 
 view(example_df)
 
-#Take mean of each variable (Method 1)
-mean(example_df$x)
-mean(example_df$log_vec)
-mean(example_df$vec_char)
-mean(example_df$vec_factor)
-
-
-#Method 2 
 ##Mean of X
 example_df%>%
   pull(x)%>%
@@ -62,6 +56,36 @@ example_df%>%
   mean()
 ```
 
+```{r eval=FALSE}
+#Convert all variables to numeric 
+example_df$x_num<- as.numeric(example_df$x)
+example_df$log_vec_num<- as.numeric(example_df$log_vec)
+example_df$vec_char_num<-as.numeric(example_df$vec_char)
+example_df$vec_factor_num<-as.numeric(example_df$vec_factor)
+
+##Mean of X
+example_df%>%
+  pull(x_num)%>%
+  mean()
+
+##Mean of logical vector
+example_df%>%
+  pull(log_vec_num)%>%
+  mean()
+
+##Mean of character vector
+example_df%>%
+  pull(vec_char_num)%>%
+  mean()
+
+##Mean of factor vector
+example_df%>%
+  pull(vec_factor_num)%>%
+  mean()
+
+```
+The mean function can only take in numeric data. In order for the factor variable mean to be calcualted, the factors had to be converted to numbers/levels. The character variable could not be converted to a number so all the values got converted to NA values. Then the mean function could not calculate a mean to do the missing values. 
+
 
 # Problem 2
 ```{r}
@@ -76,9 +100,9 @@ There are 8 variables in this dataset. The variables are species, island, bill_l
 There are `r nrow(penguins)` rows in the penguins dataset. 
 There are `r ncol(penguins)`columns in the penguins dataset. 
 The mean flipper length is `r penguins%>%pull(flipper_length_mm)%>% mean(na.rm=TRUE)` mm. 
-```{r}
-paste("There are", (nrow(penguins)), "rows in the penguins dataset")
-paste("There are", (ncol(penguins)), "columns in the penguins dataset")
+```{r eval=FALSE}
+nrow(penguins)
+ncol(penguins)
 
 #Mean of flipper_length
 penguins%>%
