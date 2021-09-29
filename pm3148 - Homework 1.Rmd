@@ -1,6 +1,8 @@
 ---
 title: "pm3148 - Homework 1"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 Import Libraries
 ```{r}
@@ -9,18 +11,18 @@ library(palmerpenguins)
 ```
 
 
-Problem 1: 
-#This problem is intended to emphasize variable types and introduce coercion; some awareness of how R treats numeric, character, and factor variables is necessary for working with these data types in practice.
+# Problem 1: 
 
-#Create a data frame comprised of:
-
-#a random sample of size 10 from a standard Normal distribution
-#a logical vector indicating whether elements of the sample are greater than 0
-#a character vector of length 10
-#a factor vector of length 10, with 3 different factor “levels”
+Create a data frame comprised of:
+a random sample of size 10 from a standard Normal distribution
+a logical vector indicating whether elements of the sample are greater than 0
+a character vector of length 10
+a factor vector of length 10, with 3 different factor “levels”
 ```{r}
+#Set seed to replicate results from rnorm 
+set.seed(123)
 
-set_seed(123)
+#Create dataframe based on previous requirements 
 example_df = 
   tibble(
     x = rnorm(10, mean =1),
@@ -31,50 +33,61 @@ example_df =
 
 view(example_df)
 
-#Take mean of each variable
+#Take mean of each variable (Method 1)
 mean(example_df$x)
 mean(example_df$log_vec)
 mean(example_df$vec_char)
 mean(example_df$vec_factor)
 
 
+#Method 2 
+##Mean of X
 example_df%>%
   pull(x)%>%
   mean()
 
+##Mean of logical vector
 example_df%>%
   pull(log_vec)%>%
   mean()
 
+##Mean of character vector
 example_df%>%
   pull(vec_char)%>%
   mean()
 
+##Mean of factor vector
 example_df%>%
   pull(vec_factor)%>%
   mean()
 ```
 
 
-Problem 2
+# Problem 2
 ```{r}
+#Load data and view
 data(package = 'palmerpenguins')
 
 head(penguins)
 str(penguins)
 ```
-#There are 8 variables in this dataset. The variables are species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, and year. 
+There are 8 variables in this dataset. The variables are species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, and year. 
 
+There are `r nrow(penguins)` rows in the penguins dataset. 
+There are `r ncol(penguins)`columns in the penguins dataset. 
+The mean flipper length is `r penguins%>%pull(flipper_length_mm)%>% mean(na.rm=TRUE)` mm. 
 ```{r}
 paste("There are", (nrow(penguins)), "rows in the penguins dataset")
 paste("There are", (ncol(penguins)), "columns in the penguins dataset")
 
+#Mean of flipper_length
 penguins%>%
   pull(flipper_length_mm)%>%
   mean(na.rm=TRUE)
 ```
-
+The mean flipper length in mm is 200.9152 mm. 
 ```{r}
+#Scatter plot 
 penguins%>%
   ggplot(aes(x = bill_length_mm, y =flipper_length_mm, color = species)) + geom_point()
 ggsave(filename = "bill_lengthvflipper_length.png")
